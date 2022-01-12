@@ -5,6 +5,10 @@ class ProfilesController < ApplicationController
     before_action :logged_in_user, only: [:update]
     before_action :correct_user,   only: [:update]
 
+    def show
+        @profile = Profile.find(params[:id])
+    end
+
     def update
         updated_profile_params = update_array_attributes_in_params(profile_params)
         @profile = Profile.find(params[:id])

@@ -2,8 +2,14 @@
 
 <main class="py-10 max-w-7xl mx-auto px-4 sm:px-8">
     <%= form_for(@profile, builder: TailwindInputBuilder) do |f| %>
+        <% data = { url: root_url+ "profiles/" + (@profile.id).to_s } %>
+        <%= javascript_tag do %>
+        var data = <%= data.to_json.html_safe %>
+        <% end %>
         <div class="flex justify-end items-center w-full mb-4">
             <div>
+                <%= button_tag "Copy link", :type => "button", :id => "clipboard-btn", :data => {:clipboard_action => "copy", :clipboard_target => "#brn"}, class: "flex-shrink-0 px-4 py-2 shadow-md hover:shadow-none text-purple-700 border-2 border-grey-700 hover:border-grey-700 bg-white hover:bg-white focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" %> 
+                <%= button_tag "Preview", :id => "preview-btn", class: "flex-shrink-0 px-4 py-2 shadow-md hover:shadow-none text-purple-700 border-2 border-grey-700 hover:border-grey-700 bg-white hover:bg-white focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" %> 
                 <%= f.submit "Save", class: "flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-green-200" %><br/>
             </div>
         </div>
@@ -11,6 +17,7 @@
         <%= render 'shared/edit_section', title: "Profile details" do %>
             <%= f.text_field :name, value: @profile.name || current_user.name, placeholder: "Name" %><br/>
             <div class="flex items-center my-4">
+            <%# button here %>
                 <%= image_tag gravatar_url_for(current_user), 
                     id: "image-preview", style:"max-width:200px"
                 %>
@@ -38,7 +45,7 @@
             <% end %><br />
             <%= render 'shared/input/buttons/add', label: "+ Add Education", path: "/educations/new" %>
         <% end %>
-        
+        <%= javascript_pack_tag 'edit'%>
     <% end %>
 
 </main>
