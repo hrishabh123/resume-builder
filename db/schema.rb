@@ -27,6 +27,31 @@ ActiveRecord::Schema.define(version: 2021_11_01_220903) do
     t.index ["profile_id"], name: "index_educations_on_profile_id"
   end
 
+  create_table "experiences", force: :cascade do |t|
+    t.string "company"
+    t.string "position"
+    t.text "description"
+    t.date "start"
+    t.date "end"
+    t.bigint "profile_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["profile_id"], name: "index_experiences_on_profile_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.string "techstack"
+    t.text "description"
+    t.date "start"
+    t.date "end"
+    t.bigint "experience_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["experience_id"], name: "index_projects_on_experience"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "name"
     t.string "job_title"
@@ -50,6 +75,8 @@ ActiveRecord::Schema.define(version: 2021_11_01_220903) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "projects", "experiences"
+  add_foreign_key "experiences", "profiles"
   add_foreign_key "educations", "profiles"
   add_foreign_key "profiles", "users"
 end
