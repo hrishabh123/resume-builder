@@ -1,0 +1,21 @@
+<div class="mt-8 text-gray-500">
+    <%= render 'shared/profile/item_with_description', 
+        title: experience.position,
+        subtitle: experience.company,
+        start_date: experience.start,
+        end_date: experience.end,
+        description: experience.description
+    %>
+    
+    <%# <span>
+        render partial: 'shared/profile/project', collection: experience.projects 
+    </span> %>
+
+    <div class="w-80 text-xl font-semibold pt-4">Projects:</div>
+    <div class="flex flex-col md:flex-row md:pb-4">
+        <span class="md:border-l border-gray-300 w-2 text-xl font-semibold"></span>
+        <div class="w-full md:px-2 md:pt-2">
+            <%= render partial: 'shared/profile/project', collection: experience.projects %>
+        </div>
+    </div>
+</div>

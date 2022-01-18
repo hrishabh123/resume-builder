@@ -3,7 +3,6 @@ class ExperiencesController < ApplicationController
     include ProfilesHelper
 
     before_action :logged_in_user, only: [:new]
-    before_action :correct_user,   only: [:new]
 
     def new
         current_user.profile.experiences.create

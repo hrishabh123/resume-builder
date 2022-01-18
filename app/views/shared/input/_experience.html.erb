@@ -5,7 +5,24 @@
     <%= experience.date_field :end, value: experience.object.end, placeholder: "End date" %><br/>
     <%= experience.text_area :description, value: experience.object.description, placeholder: "Description" %><br/>
     <%= render 'shared/input/buttons/delete', type: experience %>
-
     
-
+    <%= render 'shared/edit_project', title: "Projects" do %>
+        <%= experience.fields_for :projects do |project| %>
+                <%= project.text_field :title, value: project.object.title, placeholder: "Title" %><br/>
+                <%= project.text_field :url, value: project.object.url, placeholder: "Project URL" %><br/>
+                <%= project.text_field :techstack, value: project.object.techstack, placeholder: "Tech Stack" %><br/>
+                <%= project.text_area :description, value: project.object.description, placeholder: "Description" %><br/>
+                <%= render 'shared/input/buttons/delete', type: project %>
+            <br />
+        <% end %>
+        <%= render 'shared/input/buttons/add', label: "+ Add Project", path: "/projects/new/"+(experience.object.id).to_s %>
+    <% end %>
+    
 <% end %>
+
+<%# Project.where(experience_id: experience.object.id, profile_id: current_user.profile.id) %>
+<%# <span>Hello</span> %>
+            <%# f.fields_for experience.projects do |project| %>
+                <%# <span>Hello</span> %>
+            <%# <%= Project.where(experience_id: experience.object.id).each do |project| %>
+                <%# <%= project.id %>

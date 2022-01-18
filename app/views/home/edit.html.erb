@@ -32,10 +32,17 @@
                     <%# <%= f.file_field, :image, accept: 'image/png, image/jpeg, image/gif', class: "hidden"%> 
                     <%= f.file_field :image, accept: 'image/png, image/jpeg, image/gif', class: "content-['Upload Image']" %>
                 </button>
-            
-                <%= image_tag gravatar_url_for(current_user), 
-                    id: "image-preview", style:"max-width:200px"
-                %>
+            <%# gravatar_url_for(current_user) %>
+                <% if !@profile.image.attached? %>
+                    <%= image_tag url_for('download.png'), 
+                        id: "image-preview", style:"max-width:200px"
+                    %>
+                <% end %>
+                <% if @profile.image.attached? %>
+                    <%= image_tag url_for(@profile.image), 
+                        id: "image-preview", style:"max-width:200px"
+                    %>
+                <% end %>
             </div>
             <%= f.text_field :job_title, value: @profile.job_title, placeholder: "Job title" %><br/>
             <%= f.text_field :total_experience, value: @profile.total_experience, placeholder: "Total experience" %><br/>
@@ -56,7 +63,7 @@
 
         <%= render 'shared/edit_section', title: "Experience" do %>
             <%= f.fields_for :experiences do |experience| %>
-                <%= render 'shared/input/experience', experience: experience %>
+                <%= render 'shared/input/experience', experience: experience, f: f%>
             <% end %><br />
             <%= render 'shared/input/buttons/add', label: "+ Add Experience", path: "/experiences/new" %>
         <% end %>
