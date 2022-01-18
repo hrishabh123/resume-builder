@@ -65,6 +65,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
+  config.active_storage.service = :local
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -76,10 +77,10 @@ Rails.application.configure do
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
-  # config.log_level = :info
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  # config.log_tags = [ :request_id ]
+  config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -88,7 +89,7 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "resume_builder_production"
 
-  # config.action_mailer.perform_caching = false
+  config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -96,24 +97,23 @@ Rails.application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
-  # config.i18n.fallbacks = true
+  config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
-  # config.active_support.deprecation = :notify
+  config.active_support.deprecation = :notify
 
   # Log disallowed deprecations.
-  # config.active_support.disallowed_deprecation = :log
+  config.active_support.disallowed_deprecation = :log
 
   # Tell Active Support which deprecation messages to disallow.
-  # config.active_support.disallowed_deprecation_warnings = []
+  config.active_support.disallowed_deprecation_warnings = []
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  # config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = ::Logger::Formatter.new
 
   # Use a different logger for distributed setups.
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
@@ -122,7 +122,7 @@ Rails.application.configure do
   end
 
   # Do not dump schema after migrations.
-  # config.active_record.dump_schema_after_migration = false
+  config.active_record.dump_schema_after_migration = false
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
