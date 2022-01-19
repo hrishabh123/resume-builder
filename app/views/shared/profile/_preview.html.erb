@@ -5,14 +5,13 @@
             <div class="px-6">
                 <div class="flex flex-wrap justify-center mb-10">
                     
-                    <% if !@user || !@user.profile || !@user.profile.image.attached? %>
+                    <% if !profile || !profile.image || !profile.image.attached? %>
                         <%= image_tag url_for('download.png'), 
                             id: "image-preview", style:"max-width:200px", 
                         class: "shadow-xl rounded-full absolute w-1/2 transform -translate-y-1/2"
                         %>
-                    <% end %>
-                    <% if @user.profile.image.attached? %>
-                        <%= image_tag url_for(@user.profile.image), 
+                    <% else %>
+                        <%= image_tag url_for(@profile.image), 
                             id: "image-preview", style:"max-width:200px", 
                         class: "shadow-xl rounded-full absolute w-1/2 transform -translate-y-1/2"
                         %>
